@@ -14,3 +14,27 @@
         </div>
     </div>
 </div>
+
+<script>
+    async function SentOTP() {
+        let email = document.getElementById('email').value;
+
+        if(email == ''){
+            errorToast('Please Enter Email');
+        }else{
+            showLoader();
+            let res = await axios.post('/send-otp',{email:email});
+            hideLoader();
+
+            if(res.data['status']=='success'){
+                successToast(res.data['message']);
+                sessionStorage.setItem('email',email);
+                setTimeout(()=>{
+                    window.location.href = '/verifyOtp';
+                },1000);
+            }else{
+                errorToast(res.data['message']);
+            }
+        }
+    }
+</script>

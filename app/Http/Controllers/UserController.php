@@ -85,7 +85,7 @@ class UserController extends Controller
                 'otp' => '0'
             ]);
             $token = JWTToken::CreateTokenForResetPassword($email);
-            return response()->json(['status' => 'success', 'message' => 'OTP Verified Successful', 'token' => $token]);
+            return response()->json(['status' => 'success', 'message' => 'OTP Verified Successful'])->cookie('token', $token, 60*24*30);
         } else {
             return response()->json(['status' => 'failed', 'message' => 'unauthorized']);
         }
